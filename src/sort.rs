@@ -14,44 +14,6 @@ impl Sort {
         return new_array.to_vec();
     }
 
-    // /* quick_sort */
-    // pub fn partition(&self, mut array: Vec<i32>, low: i32, high: i32) -> i32 {
-    //     let pivot = low.clone() as usize;
-    //     let mut index = high.clone() as usize;
-    //     for i in low..high {
-    //         let ui = i as usize;
-    //         if array[ui] < array[pivot] {
-    //             (array[ui], array[index]) = (array[index], array[ui]);
-    //             index += 1;
-    //         }
-    //     }
-    //     (array[pivot], array[index]) = (array[pivot], array[index]);
-    //     return index as i32;
-    // }
-    // pub fn random_pivot_partition(&self, mut array: Vec<i32>, low: i32, high: i32) -> i32 {
-    //     let n = rand::thread_rng().gen_range(0..array.len()) as i32;
-    //     let pvt = (low + n % (high - low + 1)) as usize;
-    //     (array[high as usize], array[pvt]) = (array[pvt], array[high as usize]);
-    //     return self.partition(array, low, high);
-    // }
-    // fn _quick_sort(&self, array: Vec<i32>, low: i32, high: i32) -> i32 {
-    //     let pindex: i32;
-    //     if low < high {
-    //         pindex = self.random_pivot_partition(array, low, high);
-    //         self._quick_sort(array, low, pindex - 1);
-    //         self._quick_sort(array, pindex + 1, high);
-    //     }
-    //     return 0;
-    // }
-    // pub fn quick_sort(&self, print: bool) -> Vec<i32> {
-    //     let array = self.get_array();
-    //     println!("{:p} {:?}", &array[0], array);
-    //     let len = array.len();
-    //     // let pivot_i = rand::thread_rng().gen_range(0..len);
-    //     self._quick_sort(array, 0, (len - 1) as i32);
-    //     return Vec::new();
-    // }
-
     /* quick_sort */
     pub fn quick_sort(&self, array: Vec<i32>, print: bool) -> Vec<i32> {
         if array.len() <= 1 {
@@ -69,19 +31,14 @@ impl Sort {
                 array_less.push(array[i]);
             }
         }
-        println!("{:?}      {:}      {:?}", array_less, pivot, array_greater);
+        if print {
+            println!("{:?}      {:}      {:?}", array_less, pivot, array_greater);
+        }
         // quick_sort(array_less);
         array_sorted.append(&mut self.quick_sort(array_less, print));
         array_sorted.push(pivot);
         array_sorted.append(&mut self.quick_sort(array_greater, print));
 
-        // if print {
-        //     println!(
-        //         "{:} {:?}",
-        //         pivot,
-        //         array_sorted //, &array_greater, &array_less
-        //     );
-        // }
         return array_sorted;
     }
 
