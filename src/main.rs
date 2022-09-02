@@ -2,6 +2,7 @@ pub mod search;
 pub mod sort;
 
 use rand;
+use std::time::{Duration, Instant};
 
 fn random_array(len: i32) -> Vec<i32> {
     let mut array = Vec::new();
@@ -42,13 +43,30 @@ fn main1() {
 }
  */
 fn main() {
-    let my_search = search::Search {
-        array: random_array(2000000),
-    };
+    let my_search = search::Search::new(random_array(2000000));
+    let index = 150000;
+
+    let start_binary = Instant::now();
+    let binary_search_result = my_search
+        .binary(0, my_search.array.len() - 1, my_search.array[index])
+        .unwrap();
+    let binary_search_duration = start_binary.elapsed();
+    let start_linear = Instant::now();
+    let linear_search_result = my_search.linear(my_search.array[1500000]);
+    let linear_search_duration = start_linear.elapsed();
+
     println!(
-        " \n\n{:} at {:}",
-        //my_search.array,
-        my_search.array[1500000],
-        my_search.linear(my_search.array[1500000])
+        "\n\n
+        value: {}
+        linear_search_result {:?},
+        binary_search_result {:?},
+        linear_search_duration {:?}
+        binary_search_duration {:?},
+        ",
+        my_search.array[index],
+        linear_search_result,
+        binary_search_result,
+        linear_search_duration,
+        binary_search_duration,
     );
 }
