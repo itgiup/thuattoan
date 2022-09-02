@@ -43,8 +43,10 @@ fn main1() {
 }
  */
 fn main() {
-    let my_search = search::Search::new(random_array(2000000));
-    let index = 150000;
+    let array_len = 5_000_000;
+    let index = 4_850_000;
+
+    let my_search = search::Search::new(random_array(array_len));
 
     let start_binary = Instant::now();
     let binary_search_result = my_search
