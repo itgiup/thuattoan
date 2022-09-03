@@ -1,21 +1,14 @@
 // use rand::Rng;
-// #[derive(Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct Sort {
-    pub array: Vec<i32>,
 }
 // fn print_type_of<T>(_: &T) {
 //     println!("{}", std::any::type_name::<T>())
 // }
 
 impl Sort {
-    pub fn get_array(&self) -> Vec<i32> {
-        let new_array = &self.array.clone();
-
-        return new_array.to_vec();
-    }
-
     /* quick_sort */
-    pub fn quick_sort(&self, array: Vec<i32>, print: bool) -> Vec<i32> {
+    pub fn quick(array: Vec<i32>, print: bool) -> Vec<i32> {
         if array.len() <= 1 {
             return array;
         }
@@ -32,20 +25,19 @@ impl Sort {
             }
         }
         if print {
-            println!("{:?}      {:}      {:?}", array_less, pivot, array_greater);
+            println!("{:?} {:} {:?}", array_less, pivot, array_greater);
         }
         // quick_sort(array_less);
-        array_sorted.append(&mut self.quick_sort(array_less, print));
+        array_sorted.append(&mut Self::quick(array_less, print));
         array_sorted.push(pivot);
-        array_sorted.append(&mut self.quick_sort(array_greater, print));
+        array_sorted.append(&mut Self::quick(array_greater, print));
 
         return array_sorted;
     }
 
     /* bubble_sort */
-    pub fn bubble_sort(&self, print: bool) -> Vec<i32> {
-        let mut array = self.get_array();
-
+    pub fn bubble(mut array: Vec<i32>, print: bool) -> Vec<i32> {
+        let _array = array.clone();
         for i in 0..array.len() {
             let i_ = array.len() - i - 1;
             if print {

@@ -1,47 +1,46 @@
-pub struct Search {
-    pub array: Vec<i32>,
-}
+pub struct Search {}
 
 impl Search {
-    pub fn new(array: Vec<i32>) -> Self {
-        Self { array }
-    }
-
-    pub fn linear(&self, x: i32) -> i32 {
-        let mut i = 0;
-        for v in &self.array {
-            if v == &x {
-                print!("{v} ");
-                break;
+    pub fn check_sorted(array: Vec<i32>) -> bool {
+        let mut i: usize = 0;
+        for v in array.to_owned() {
+            if (i < array.len() - 1) && (array[i + 1] < v) {
+                println!("sorted: false {}", i);
+                return false;
             }
             i += 1;
         }
-        return i;
+        return true;
+    }
+
+    pub fn linear(array: Vec<i32>, x: i32) -> Option<usize> {
+        let mut i: usize = 0;
+        for v in array {
+            if v == x {
+                return Some(i);
+            }
+            i += 1;
+        }
+        return None;
     }
 
     /// .
-    pub fn binary(&self, from: usize, to: usize, value: i32) -> Option<usize> {
-        if to == from {
-            if self.array[from] == value {
-                return Some(from);
-            } else {
-                return None;
-            }
-        } else {
-            let mid = (from + to) / 2;
-            // println!("mid: {} {} {}", from, mid, to);
-            let search_left = self.binary(from, mid, value);
-            match search_left {
-                Some(_) => {
-                    // println!("search_left {:?} - from: {}", search_left, from);
-                    return search_left;
-                }
-                None => {
-                    // println!("search right - from: {} {}", mid + 1, to);
-                    return self.binary(mid + 1, to, value);
-                }
-            }
+    pub fn binary(array: Vec<i32>, from: usize, to: usize, value: i32) -> Option<usize> {
+        let mid = (from + to) / 2;
+        // println!("mid: {} {} {}", from, mid, to);
+
+        if array[mid] == value {
+            return Some(mid);
         }
+        if array[mid] > value {
+            // println!("search_left {:?} - from: {}", search_left, from);
+            return Self::binary(array, from, mid, value);
+        }
+        if array[mid] < value {
+            // println!("search right - from: {} {}", mid + 1, to);
+            return Self::binary(array, mid + 1, to, value);
+        }
+        return None;
     }
 
     // fn Dijkstra() {}

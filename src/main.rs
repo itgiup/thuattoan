@@ -2,7 +2,8 @@ pub mod search;
 pub mod sort;
 
 use rand;
-use std::time::{Duration, Instant};
+use search::Search;
+use std::time::Instant;
 
 fn random_array(len: i32) -> Vec<i32> {
     let mut array = Vec::new();
@@ -43,29 +44,40 @@ fn main1() {
 }
  */
 fn main() {
-    let array_len = 5_000_000;
-    let index = 4_850_000;
+    let array_len = 50_000;
+    let index = 40_000;
+    let numbers_random = random_array(array_len);
+    let array_sorted = &(sort::Sort::quick(numbers_random.to_vec(), false));
 
-    let my_search = search::Search::new(random_array(array_len));
+    // println!("array: {:?}\n", numbers_random);
+    // println!("array_quick_sort: {:?}\n", array_sorted);
+    Search::check_sorted(array_sorted.to_owned());
+
+    let start_linear = Instant::now();
+    let linear_search_result =
+        Search::linear(array_sorted.to_owned(), array_sorted[index]).unwrap();
+    let linear_search_duration = start_linear.elapsed();
 
     let start_binary = Instant::now();
-    let binary_search_result = my_search
-        .binary(0, my_search.array.len() - 1, my_search.array[index])
-        .unwrap();
+    let binary_search_result = Search::binary(
+        array_sorted.to_owned(),
+        0,
+        array_sorted.len() - 1,
+        array_sorted[index],
+    )
+    .unwrap();
     let binary_search_duration = start_binary.elapsed();
-    let start_linear = Instant::now();
-    let linear_search_result = my_search.linear(my_search.array[1500000]);
-    let linear_search_duration = start_linear.elapsed();
 
     println!(
         "\n\n
         value: {}
-        linear_search_result {:?},
-        binary_search_result {:?},
-        linear_search_duration {:?}
-        binary_search_duration {:?},
+        linear_search_result:    {:?},
+        binary_search_result:    {:?},
+
+        linear_search_duration:  {:?}
+        binary_search_duration:  {:?},
         ",
-        my_search.array[index],
+        array_sorted[index],
         linear_search_result,
         binary_search_result,
         linear_search_duration,
