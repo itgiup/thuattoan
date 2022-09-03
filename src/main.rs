@@ -47,10 +47,12 @@ fn main() {
     let array_len = 50_000;
     let index = 40_000;
     let numbers_random = random_array(array_len);
+    
+    let start_quick_sort = Instant::now();
     let array_sorted = &(sort::Sort::quick(numbers_random.to_vec(), false));
+    println!("time_quick_sort: {:?}\n", start_quick_sort.elapsed());
 
     // println!("array: {:?}\n", numbers_random);
-    // println!("array_quick_sort: {:?}\n", array_sorted);
     Search::check_sorted(array_sorted.to_owned());
 
     let start_linear = Instant::now();
