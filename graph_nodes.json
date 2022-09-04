@@ -1,0 +1,146 @@
+[
+    {
+        "name": "A",
+        "connects": [
+            {
+                "name": "B",
+                "distance": 4
+            },
+            {
+                "name": "C",
+                "distance": 2
+            },
+            {
+                "name": "D",
+                "distance": 7
+            }
+        ]
+    },
+    {
+        "name": "B",
+        "connects": [
+            {
+                "name": "A",
+                "distance": 4
+            },
+            {
+                "name": "C",
+                "distance": 6
+            },
+            {
+                "name": "E",
+                "distance": 6
+            },
+            {
+                "name": "F",
+                "distance": 4
+            },
+            {
+                "name": "G",
+                "distance": 12
+            }
+        ]
+    },
+    {
+        "name": "C",
+        "connects": [
+            {
+                "name": "A",
+                "distance": 2
+            },
+            {
+                "name": "B",
+                "distance": 6
+            },
+            {
+                "name": "G",
+                "distance": 9
+            }
+        ]
+    },
+    {
+        "name": "D",
+        "connects": [
+            {
+                "name": "A",
+                "distance": 7
+            },
+            {
+                "name": "G",
+                "distance": 2
+            },
+            {
+                "name": "H",
+                "distance": 3
+            }
+        ]
+    },
+    {
+        "name": "E",
+        "connects": [
+            {
+                "name": "B",
+                "distance": 6
+            },
+            {
+                "name": "F",
+                "distance": 2
+            }
+        ]
+    },
+    {
+        "name": "F",
+        "connects": [
+            {
+                "name": "B",
+                "distance": 4
+            },
+            {
+                "name": "E",
+                "distance": 2
+            },
+            {
+                "name": "G",
+                "distance": 1
+            }
+        ]
+    },
+    {
+        "name": "G",
+        "connects": [
+            {
+                "name": "B",
+                "distance": 12
+            },
+            {
+                "name": "C",
+                "distance": 7
+            },
+            {
+                "name": "D",
+                "distance": 2
+            },
+            {
+                "name": "F",
+                "distance": 1
+            },
+            {
+                "name": "H",
+                "distance": 3
+            }
+        ]
+    },
+    {
+        "name": "H",
+        "connects": [
+            {
+                "name": "D",
+                "distance": 3
+            },
+            {
+                "name": "G",
+                "distance": 3
+            }
+        ]
+    }
+]

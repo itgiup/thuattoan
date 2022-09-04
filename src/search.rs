@@ -1,4 +1,5 @@
 pub struct Search {}
+use serde::{Deserialize};
 
 impl Search {
     pub fn check_sorted(array: Vec<i32>) -> bool {
@@ -45,4 +46,20 @@ impl Search {
 
     // fn Dijkstra() {}
     // fn Hash() {}
+}
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+pub struct NodePath {
+    name: String,
+    distance: f32,
+}
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+pub struct Node {
+    name: String,
+    connects: Vec<NodePath>,
+}
+
+impl Node {
+    
 }
