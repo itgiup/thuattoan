@@ -2,7 +2,7 @@ pub mod search;
 pub mod sort;
 
 use rand;
-use search::Search;
+use search::{Search, Node};
 use std::error::Error;
 use std::fs::File;
 use std::io::BufReader;
@@ -17,16 +17,16 @@ fn _random_array(len: i32) -> Vec<i32> {
     return array;
 }
 
-fn read_nodes_from_file<P: AsRef<Path>>(path: P) -> Result<search::Node, Box<dyn Error>> {
+fn read_nodes_from_file<P: AsRef<Path>>(path: P) -> Result<Vec<search::Node>, Box<dyn Error>> {
     // Open the file in read-only mode with buffer.
     let file = File::open(path)?;
     let reader = BufReader::new(file);
 
     // Read the JSON contents of the file as an instance of `User`.
-    let u = serde_json::from_reader(reader)?;
+    let nodes:Vec<Node> = serde_json::from_reader(reader)?;
 
     // Return the `User`.
-    Ok(u)
+    Ok(nodes)
 }
 
 /*
@@ -117,7 +117,7 @@ fn main() {
         binary_search_duration,
     );*/
 
-    let nodes = read_nodes_from_file("graph_nodes.json").unwrap();
+    let nodes = read_nodes_from_file("graph_nodes.json") .unwrap();
     println!("{:#?}", nodes);
     // for x in nodes {
     //     println!("{:?} ", x);

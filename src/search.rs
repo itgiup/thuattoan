@@ -1,5 +1,6 @@
 pub struct Search {}
-use serde::{Deserialize};
+use serde::Deserialize;
+use std::error::Error;
 
 impl Search {
     pub fn check_sorted(array: Vec<i32>) -> bool {
@@ -44,22 +45,56 @@ impl Search {
         return None;
     }
 
-    // fn Dijkstra() {}
     // fn Hash() {}
 }
 #[derive(Deserialize, Debug)]
-#[serde(rename_all = "PascalCase")]
 pub struct NodePath {
     name: String,
     distance: f32,
 }
 #[derive(Deserialize, Debug)]
-#[serde(rename_all = "PascalCase")]
 pub struct Node {
     name: String,
     connects: Vec<NodePath>,
 }
 
+enum Result<Vec, E> {
+    Ok(Vec),
+    Err(E),
+}
+
 impl Node {
-    
+    pub fn dijkstra (nodes: Vec<Node>, from: String, to: String) -> Result<Vec<Node>, String>  {
+        let mut start: Node;
+        let mut end: Node;
+        // danh sách đường đi
+        let mut path:Vec<Node> = Vec::new();
+        let mut from_exist = false;
+        let mut to_exist = false;
+        for node in nodes {
+            if node.name == from {
+                start = node;
+                from_exist = true;
+            }
+            if node.name == to {
+                end = node;
+                to_exist = true;
+            }
+        }
+        // return std::fs::File::Open("");
+        if !from_exist || !to_exist {
+            Err(String::from("Không tìm thấy node: ")); //.to_owned() + &from.to_owned() + " - " + &to.to_owned());
+        }
+        path.push(start);
+
+        // node có khoảng cách ngắn nhất
+        let node_path = start.connects[0];
+
+        for np in start.connects {
+            if np.distance > node_path.distance {
+                node_path = np;
+            }
+        }
+        return Result.Ok( path);
+    }
 }
